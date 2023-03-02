@@ -1,5 +1,5 @@
 <template>
-  <el-backtop :bottom="80" :right="60" :visibility-height="280">
+  <el-backtop :bottom="50" :right="30" :visibility-height="280">
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-huojian"></use>
     </svg>

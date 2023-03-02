@@ -10,8 +10,4 @@
   </div>
 </template>
 <script setup lang="ts"></script>
-<style scoped lang="less">
-.error_wrap{
-
-}
-</style>
+<style scoped lang="less"></style>

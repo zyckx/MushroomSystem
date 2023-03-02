@@ -3,7 +3,7 @@
     <div class="footer_content">
       <div class="footer_logo footer-content-column">
         <div class="logo-container">
-          <img src="../../assets/img/index/logoColor.png" alt="">
+          <img src="../../assets/img/index/logoColor.png" alt="" />
           <div class="logo-text">
             <p class="text1">Xanadu</p>
             <p class="text2">INTERNET COMPANY</p>
@@ -31,13 +31,17 @@
       <div class="focus_us footer-content-column">
         <h2>实时动态与招聘信息，扫码关注我们</h2>
         <div class="media">
-          <div :class="item.name" v-for="(item, index) in focusIcon" :key="index">
+          <div
+            :class="item.name"
+            v-for="(item, index) in focusIcon"
+            :key="index"
+          >
             <el-popover placement="top" trigger="hover">
               <div class="qr_popover">
-                <img :src="item.qr" alt="">
+                <img :src="item.qr" alt="" />
                 <h2>{{ item.info }}</h2>
               </div>
-              <img :src="item.path" :alt="item.name" slot="reference">
+              <img :src="item.path" :alt="item.name" slot="reference" />
             </el-popover>
           </div>
         </div>
@@ -46,58 +50,48 @@
   </div>
 </template>
 <script lang="ts" setup>
+
+
 const contactList = ref([
-
   {
-    name: '媒体问询',
-    email: 'aerowangue@126.com'
+    name: "媒体问询",
+    email: "aerowangue@126.com",
   },
   {
-    name: '招聘相关',
-    email: 'aerowangue@126.com'
+    name: "招聘相关",
+    email: "aerowangue@126.com",
   },
   {
-    name: '商务合作',
-    email: 'aerowangue@126.com'
+    name: "商务合作",
+    email: "aerowangue@126.com",
   },
   {
-    name: '广告相关',
-    email: 'aerowangue@126.com'
-
-  }
-])
-const focusIcon=ref([
+    name: "广告相关",
+    email: "aerowangue@126.com",
+  },
+]);
+const focusIcon = ref([
   {
-    name: 'weibo',
-    path: ('../../assets/img/focus/weibo.png'),
-    qr: ('../../assets/img/focus/qr_weibo.png'),
-    info: '关注官方微博'
+    name: "weibo",
+    path: "../../assets/img/focus/weibo.png",
+    qr: "../../assets/img/focus/qr_weibo.png",
+    info: "关注官方微博",
   },
   {
-    name: 'weixin',
-    path: ('../../assets/img/focus/weixin.svg'),
-    qr: ('../../assets/img/focus/qr_weixin.png'),
-    info: '关注官方微信公众号'
+    name: "weixin",
+    path: "../../assets/img/focus/weixin.svg",
+    qr: "../../assets/img/focus/qr_weixin.png",
+    info: "关注官方微信公众号",
   },
   {
-    name: 'bilibili',
-    path: ('../../assets/img/focus/bilibili.png'),
-    qr: ('../../assets/img/focus/qr_bilibili.png'),
-    info: '关注官方 bilibili 号'
-  }
-])
+    name: "bilibili",
+    path: "../../assets/img/focus/bilibili.png",
+    qr: "../../assets/img/focus/qr_bilibili.png",
+    info: "关注官方 bilibili 号",
+  },
+]);
 </script>
 <style lang="less" scoped>
-* {
-  margin: 0;
-  padding: 0;
-}
-
-h2 {
-  font-size: 100%;
-  font-weight: 400;
-  font-variant: normal;
-}
 
 .footer_container {
   width: 100%;
