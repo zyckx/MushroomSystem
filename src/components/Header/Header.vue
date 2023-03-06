@@ -4,23 +4,43 @@
       <div class="header_content">
         <div class="logo">
           <router-link to="/">
-            <img src="../../assets/logo.png" alt="logo"/>
+            <img src="../../assets/logo.png" alt="logo" />
           </router-link>
         </div>
 
         <div class="container">
-          <input @click="MenuIsOpen=!MenuIsOpen" class="label-check" id="label-check" type="checkbox">
+          <input
+            @click="MenuIsOpen = !MenuIsOpen"
+            class="label-check"
+            id="label-check"
+            type="checkbox"
+            :checked="MenuIsOpen"
+          />
           <label for="label-check" class="hamburger-label">
             <span class="line1"></span>
             <span class="line2"></span>
             <span class="line3"></span>
-            <label></label></label></div>
-        <div class="menu_wrapper" :class="{MenuOpen:MenuIsOpen}">
+            <label></label
+          ></label>
+        </div>
+        <div class="menu_wrapper" :class="{ MenuOpen: MenuIsOpen }">
           <div class="menu_item" v-for="(nav, index) in navList" :key="index">
             <h2 class="menu_item_link">
               <router-link :to="nav.path">
                 <span>{{ nav.title }}</span>
               </router-link>
+            </h2>
+          </div>
+          <div class="menu_item">
+            <h2 class="menu_item_link">
+              <template v-if="userStore.IsLogin">
+                <img src="../../assets/logo.png" alt="" />
+              </template>
+              <template v-else>
+                <router-link to="/login">
+                  <span>登录</span>
+                </router-link>
+              </template>
             </h2>
           </div>
         </div>
@@ -29,7 +49,8 @@
   </header>
 </template>
 <script setup lang="ts">
-
+import { useUserStore } from "../../store/UserStore";
+const userStore = useUserStore();
 const router = useRouter();
 const MenuIsOpen = ref(false);
 const navList = ref([
@@ -49,29 +70,53 @@ const navList = ref([
     title: "关于我们",
     path: "/about",
   },
-  {
-    title: "登录",
-    path: "/login",
-  },
 ]);
-const headerIsFixed = ref(false);
 
+const toggleBtnColor = ref("#fff");
+const headerTextColor = ref("#fff");
+const headerIsFixed = ref(false);
+const changeBtnColor = () => {
+  if (router.currentRoute.value.path === "/") {
+    toggleBtnColor.value = "#fff";
+  } else {
+    toggleBtnColor.value = "#000";
+  }
+};
+const changeHeaderColor = () => {
+  // 检测是否主页
+  if (router.currentRoute.value.path === "/") {
+    if (MenuIsOpen.value) {
+      headerTextColor.value = "#000";
+    } else {
+      headerTextColor.value = "#fff";
+    }
+  } else {
+    headerTextColor.value = "#000";
+  }
+};
+// 检测路由变化
+watch(router.currentRoute, () => {
+  changeHeaderColor();
+  changeBtnColor();
+});
+// 检测菜单变化
+watch(MenuIsOpen, () => {
+  changeHeaderColor();
+});
 //每次跳转路由后，关闭菜单
 router.afterEach(() => {
   MenuIsOpen.value = false;
 });
 
-
 const handleScroll = () => {
   const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
+    document.documentElement.scrollTop || document.body.scrollTop;
   headerIsFixed.value = scrollTop > 100;
 };
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
 });
-
 </script>
 <style lang="less" scoped>
 header {
@@ -82,14 +127,7 @@ header {
   position: fixed;
   z-index: 999;
   transition: transform 0.2s ease;
-  color: #000000;
-  box-shadow: 0  0 10px rgba(0, 0, 0, 0.1);
-  &.header_fixed {
-    background-color: rgba(255, 255, 255, 1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 1) !important;
-  }
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
   .header_container {
     max-width: 1200px;
@@ -118,8 +156,6 @@ header {
             height: 40px;
           }
         }
-
-
       }
 
       .container {
@@ -140,13 +176,32 @@ header {
             color: #333;
             font-weight: 500;
             transition: all 0.3s;
-
+            img {
+              width: 40px;
+              height: 40px;
+            }
             &:hover {
               color: #1890ff;
             }
 
             a {
-              color: #333;
+              color: v-bind(headerTextColor);
+            }
+          }
+        }
+      }
+    }
+  }
+  &.header_fixed {
+    background-color: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    .header_content {
+      .menu_wrapper {
+        .menu_item {
+          .menu_item_link {
+            a {
+              color: #000;
             }
           }
         }
@@ -167,7 +222,6 @@ header {
 }
 
 .hamburger-label {
-
   width: 58px;
   height: 30px;
   display: block;
@@ -177,12 +231,12 @@ header {
 .hamburger-label span {
   width: 40px;
   height: 4px;
-  background-color: #e7e7e7;
+  background-color: v-bind(toggleBtnColor);
   position: absolute;
 }
 
 .line1 {
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .line2 {
@@ -196,12 +250,12 @@ header {
 }
 
 #label-check:checked + .hamburger-label .line1 {
-  transform: rotate(-36deg) scaleX(.55) translate(-30px, -4.5px);
+  transform: rotate(-36deg) scaleX(0.55) translate(-30px, -4.5px);
   border-radius: 50px 50px 50px 50px;
 }
 
 #label-check:checked + .hamburger-label .line3 {
-  transform: rotate(36deg) scaleX(.55) translate(-30px, 4.5px);
+  transform: rotate(36deg) scaleX(0.55) translate(-30px, 4.5px);
   border-radius: 50px 50px 50px 50px;
 }
 
@@ -219,7 +273,6 @@ header {
         .container {
           display: flex;
         }
-
         .menu_wrapper {
           box-shadow: 5px 1px 10px rgba(0, 0, 0, 0.1);
           transform: translateX(120%);

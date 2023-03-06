@@ -28,6 +28,15 @@ const routes: Array<RouteRecordRaw> = [
         name: 'discussion',
         component: () => import('../views/Discussion/Discussion.vue')
     },
+    // 添加带权限的personal页面
+    {
+        path: '/personal',
+        name: 'personal',
+        component: () => import('../views/Personal/Personal.vue'),
+        meta: {
+            requireAuth: true
+        }
+    },
     {
         path: '/:catchAll(.*)',
         name: '404',
@@ -40,5 +49,24 @@ const router = createRouter({
     routes
 })
 
-
+//全局开启路由守卫，检验cookie
+router.beforeEach((to, from, next) => {
+    //跳转到登录页
+    if (to.path === '/login') {
+        next();
+    }else{
+        // 检查权限路由
+        if (to.meta.requireAuth) {
+        // 检查cookie
+            if (document.cookie.indexOf('ticket') === -1) {
+                ElMessage.error('请登录');
+                next('/login');
+            } else {
+                next();
+            }
+        }  
+        next();
+        
+    }
+})
 export default router;

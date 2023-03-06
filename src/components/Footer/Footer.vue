@@ -3,20 +3,22 @@
     <div class="footer_content">
       <div class="footer_logo footer-content-column">
         <div class="logo-container">
-          <img src="../../assets/img/index/logoColor.png" alt="" />
+          <img src="../../assets/logo.png" alt="" />
           <div class="logo-text">
-            <p class="text1">Xanadu</p>
-            <p class="text2">INTERNET COMPANY</p>
+            <p class="text1">香菇菌棒污染识别系统</p>
+            <p class="text2">
+              Mushroom stick contamination identification system
+            </p>
           </div>
         </div>
-        <h2>© 2020-2021 Xanadu&nbsp;科技有限公司</h2>
-        <h2>X公网安备 xxxxxxxxxxxxxx号 I ICP备xxxxxxxx号-1</h2>
+        <h2>© 2020-2021 少年先疯队&nbsp;科技有限公司</h2>
+        <!-- <h2>X公网安备 xxxxxxxxxxxxxx号 I ICP备xxxxxxxx号-1</h2> -->
       </div>
       <div class="about_us footer-content-column">
         <h2>关于我们</h2>
         <ul class="about_list">
           <li>
-            <router-link to="/job" target="_blank">企业文化</router-link>
+            <router-link to="/about" target="_blank">介绍</router-link>
           </li>
         </ul>
       </div>
@@ -30,28 +32,12 @@
       </div>
       <div class="focus_us footer-content-column">
         <h2>实时动态与招聘信息，扫码关注我们</h2>
-        <div class="media">
-          <div
-            :class="item.name"
-            v-for="(item, index) in focusIcon"
-            :key="index"
-          >
-            <el-popover placement="top" trigger="hover">
-              <div class="qr_popover">
-                <img :src="item.qr" alt="" />
-                <h2>{{ item.info }}</h2>
-              </div>
-              <img :src="item.path" :alt="item.name" slot="reference" />
-            </el-popover>
-          </div>
-        </div>
+        <div class="media"></div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-
-
 const contactList = ref([
   {
     name: "媒体问询",
@@ -70,29 +56,8 @@ const contactList = ref([
     email: "aerowangue@126.com",
   },
 ]);
-const focusIcon = ref([
-  {
-    name: "weibo",
-    path: "../../assets/img/focus/weibo.png",
-    qr: "../../assets/img/focus/qr_weibo.png",
-    info: "关注官方微博",
-  },
-  {
-    name: "weixin",
-    path: "../../assets/img/focus/weixin.svg",
-    qr: "../../assets/img/focus/qr_weixin.png",
-    info: "关注官方微信公众号",
-  },
-  {
-    name: "bilibili",
-    path: "../../assets/img/focus/bilibili.png",
-    qr: "../../assets/img/focus/qr_bilibili.png",
-    info: "关注官方 bilibili 号",
-  },
-]);
 </script>
 <style lang="less" scoped>
-
 .footer_container {
   width: 100%;
   background: #1f2329;

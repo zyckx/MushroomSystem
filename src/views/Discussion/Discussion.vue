@@ -5,16 +5,16 @@
       <h3>预防、防治污染</h3>
     </div>
     <el-autocomplete
-        class="search-input"
-        popper-class="my-autocomplete"
-        highlight-first-item
-        v-model="searchQuery"
-        clearable
-        ref="autocomplete"
-        @focus="true"
-        @blur="false"
-        placeholder="请输入病因关键词"
-        :trigger-on-focus="false"
+      class="search-input"
+      popper-class="my-autocomplete"
+      highlight-first-item
+      v-model="searchQuery"
+      clearable
+      ref="autocomplete"
+      @focus="true"
+      @blur="false"
+      placeholder="请输入病因关键词"
+      :trigger-on-focus="false"
     >
     </el-autocomplete>
   </div>
@@ -23,7 +23,7 @@
     <div class="discuss-card">
       <div class="discuss-card-item">
         <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病">
+          <img src="../../assets/img/ill.jpg" alt="发病" />
         </div>
         <div class="discuss-card-item-content">
           <h3 class="discuss-title">香菇菌棒污染****</h3>
@@ -32,7 +32,7 @@
       </div>
       <div class="discuss-card-item">
         <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病">
+          <img src="../../assets/img/ill.jpg" alt="发病" />
         </div>
         <div class="discuss-card-item-content">
           <h3 class="discuss-title">香菇菌棒污染****</h3>
@@ -41,7 +41,7 @@
       </div>
       <div class="discuss-card-item">
         <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病">
+          <img src="../../assets/img/ill.jpg" alt="发病" />
         </div>
         <div class="discuss-card-item-content">
           <h3 class="discuss-title">香菇菌棒污染****</h3>
@@ -50,7 +50,7 @@
       </div>
       <div class="discuss-card-item">
         <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病">
+          <img src="../../assets/img/ill.jpg" alt="发病" />
         </div>
         <div class="discuss-card-item-content">
           <h3 class="discuss-title">香菇菌棒污染****</h3>
@@ -59,7 +59,7 @@
       </div>
       <div class="discuss-card-item">
         <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病">
+          <img src="../../assets/img/ill.jpg" alt="发病" />
         </div>
         <div class="discuss-card-item-content">
           <h3 class="discuss-title">香菇菌棒污染****</h3>
@@ -68,7 +68,7 @@
       </div>
       <div class="discuss-card-item">
         <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病">
+          <img src="../../assets/img/ill.jpg" alt="发病" />
         </div>
         <div class="discuss-card-item-content">
           <h3 class="discuss-title">香菇菌棒污染****</h3>
@@ -77,14 +77,12 @@
       </div>
     </div>
   </div>
+  <chatGPT />
 </template>
 <script setup lang="ts">
-const  searchQuery=ref('')
-
-
+const searchQuery = ref("");
 </script>
 <style lang="less" scoped>
-
 @hover_color: #3370ff;
 .news_header {
   background-color: rgba(255, 255, 255, 0.5);
@@ -132,7 +130,6 @@ const  searchQuery=ref('')
       height: 46px;
       line-height: 46px;
       border-radius: 30px;
-      box-shadow: 0 2px 4px rgb(0 0 0 / 12%), 0 0 6px rgb(0 0 0 / 4%);
     }
 
     .el-input__icon {
@@ -153,13 +150,11 @@ const  searchQuery=ref('')
     padding: 30px 0;
   }
 
-
-
   .discuss-card {
     width: 100%;
     display: flex;
     //从头换行
-flex-flow: row wrap;
+    flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
 
@@ -206,16 +201,12 @@ flex-flow: row wrap;
           line-height: 24px;
         }
       }
-
     }
   }
   @media (max-width: 768px) {
-    .discuss-card{
+    .discuss-card {
       justify-content: center;
     }
   }
 }
-
 </style>
-
-

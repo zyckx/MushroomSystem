@@ -1,25 +1,24 @@
 <template>
   <div class="banner">
-      <el-carousel
-        :interval="2000"
-        arrow="hover"
-        :height="100 + 'vh'"
-        :autoplay="true"
-        ref="carousel"
-        trigger="click"
-        indicator-position="none"
-      >
-        <el-carousel-item v-for="item in imgList" :key="item.id">
-          <div class="img_con">
-            <div class="img_cover"></div>
-            <img class="element-img" alt="" :src="item.imgUrl" />
-          </div>
-        </el-carousel-item>
-      </el-carousel>
+    <el-carousel
+      :interval="2000"
+      arrow="hover"
+      :height="100 + 'vh'"
+      :autoplay="true"
+      ref="carousel"
+      trigger="click"
+      indicator-position="none"
+    >
+      <el-carousel-item v-for="item in imgList" :key="item.id">
+        <div class="img_con">
+          <div class="img_cover"></div>
+          <img class="element-img" alt="" :src="item.imgUrl" />
+        </div>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 <script setup lang="ts">
-
 const bannerHeight = ref(0);
 onMounted(() => {
   bannerHeight.value = window.innerHeight;
@@ -37,28 +36,23 @@ onBeforeMount(() => {
   imgList.value = [
     {
       id: 0,
-      imgUrl:
-        "https://cdn.jsdelivr.net/gh/xanaduwang/aerowang/img/20210604161353.jpg",
+      imgUrl: "src/assets/img/banners/banner1.jpg",
     },
     {
       id: 1,
-      imgUrl:
-        "https://cdn.jsdelivr.net/gh/xanaduwang/aerowang/img/20210604161737.jpg",
+      imgUrl: "src/assets/img/banners/banner2.png",
     },
     {
       id: 2,
-      imgUrl:
-        "https://cdn.jsdelivr.net/gh/xanaduwang/aerowang/img/20210604161757.png",
+      imgUrl: "src/assets/img/banners/banner3.jpg",
     },
     {
       id: 3,
-      imgUrl:
-        "https://cdn.jsdelivr.net/gh/xanaduwang/aerowang/img/20210604161818.jpg",
+      imgUrl: "src/assets/img/banners/banner1.jpg",
     },
     {
       id: 4,
-      imgUrl:
-        "https://cdn.jsdelivr.net/gh/xanaduwang/aerowang/img/20210604161834.jpg",
+      imgUrl: "src/assets/img/banners/banner2.png",
     },
   ];
 });

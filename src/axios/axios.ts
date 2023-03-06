@@ -18,9 +18,6 @@ service.interceptors.request.use(
 );
 // axios响应拦截器
 service.interceptors.response.use((response: AxiosResponse) => {
-    console.log("response", response)
-    //打印header
-    console.log("response.headers", response.headers)
     return response;
 });
 export type { AxiosRequestConfig, AxiosResponse, AxiosError };

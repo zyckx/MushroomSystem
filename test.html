@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+ <span id="num">
+100
+ </span>
+</body>
+<script>
+    const num=document.getElementById('num')
+    function countUp(element, startVal, endVal, decimalPlaces, duration, options) {
+        // 如果 endVal 小于 startVal，则返回
+        if (endVal < startVal) return
+
+        // 设置默认选项
+        const defaults = {
+            useEasing: true,
+            useGrouping: true,
+            separator: ',',
+            decimal: '.',
+            prefix: '',
+            suffix: ''
+        }
+
+        // 将传入的选项与默认选项合并
+        options = Object.assign(defaults, options)
+
+        // 计算开始值和结束值之间的差值
+        const range = endVal - startVal
+
+        // 计算每秒增加的数量
+        const increment = range / (duration * 1000)
+
+        // 将元素的内容设置为起始值，并根据选项格式化值
+        element.innerText = formatNumber(startVal, decimalPlaces, options)
+
+        // 定义一个变量表示当前值
+        let currentVal = startVal
+
+        // 定义一个变量表示动画的时间戳
+        let timestamp = null
+
+        // 定义一个变量表示动画是否完成
+        let completed = false
+
+        // 定义一个函数，用于更新元素的值
+        function updateValue() {
+            // 如果动画已完成，则返回
+            if (completed) return
+
+            // 计算新的值
+            currentVal += increment
+
+            // 如果新的值大于等于结束值，则将元素的值设置为结束值，并将 completed 设置为 true
+            if (currentVal >= endVal) {
+                element.innerText = formatNumber(endVal, decimalPlaces, options)
+                completed = true
+            } else {
+                // 否则，将元素的值设置为新的值，并继续执行动画
+                element.innerText = formatNumber(currentVal, decimalPlaces, options)
+                timestamp = requestAnimationFrame(updateValue)
+            }
+        }
+
+        // 开始执行动画
+        timestamp = requestAnimationFrame(updateValue)
+
+        // 定义一个函数，用于停止动画并将元素的值重置为起始值
+        function reset() {
+            if (timestamp) {
+                cancelAnimationFrame(timestamp)
+                element.innerText = formatNumber(startVal, decimalPlaces, options)
+                currentVal = startVal
+                completed = false
+            }
+        }
+
+        // 返回 reset 函数，以便在需要时可以停止动画并重置元素的值
+        return reset
+    }
+
+    // 定义一个函数，用于格式化数字
+    function formatNumber(number, decimalPlaces, options) {
+        const negative = number < 0 ? '-' : ''
+        const decimal = options.decimal
+        const thousands = options.separator
+        const absNumber = Math.abs(number).toFixed(decimalPlaces)
+        const parts = absNumber.split('.')
+        let integer = parts[0]
+        let result = ''
+
+        while (integer.length > 3) {
+            result = thousands + integer.slice(-3) + result
+            integer = integer.slice(0, -3)
+        }
+
+        if (integer) {
+            result = integer + result
+        }
+
+        if (decimalPlaces) {
+            result += decimal + parts[1]
+        }
+
+        return negative + options.prefix + result + options.suffix
+    }
+    window.onload = function () {
+        const reset = countUp(num, 0, 100, 0, 2, {
+            separator: ',',
+            decimal: '.',
+            prefix: '',
+            suffix: ''
+        })
+        
+    }
+</script>
+
+</html>
