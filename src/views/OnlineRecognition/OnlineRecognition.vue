@@ -1,8 +1,8 @@
 <template>
   <div class="news-banner">
     <div class="banner-title">
-      <h2>新视野</h2>
-      <h3>了解更多新闻</h3>
+      <h2>搜索治理方法</h2>
+      <h3>了解更多</h3>
     </div>
     <el-autocomplete
       class="search-input"
@@ -15,8 +15,9 @@
       @blur="(autocompleteFlag) => false"
       @clear="searchHandle"
       :fetch-suggestions="querySearchAsync"
-      placeholder="请输入新闻关键词"
+      placeholder="请输入发病关键词"
       :trigger-on-focus="false"
+      @select="handleSelect"
     >
     </el-autocomplete>
   </div>
@@ -69,8 +70,13 @@
 </template>
 
 <script setup lang="ts">
+import { getSuggestions } from "../../api/getSuggestions";
 const searchNews = ref("");
-const autocompleteFlag = ref(false);
+interface SuggestItem {
+  value: string;
+  link: string;
+}
+const baiduSuggestions = ref<SuggestItem[]>([]);
 
 const IsRecognized = ref(false);
 const submitUpload = () => {
@@ -80,12 +86,19 @@ const searchHandle = () => {
   console.log("searchHandle");
 };
 const querySearchAsync = (queryStr: string, cb: any) => {
-  const results = queryStr
-    ? ["vue", "vue-router", "vue-cli"].filter((item) =>
-        item.toLowerCase().includes(queryStr.toLowerCase())
-      )
-    : [];
-  cb(results);
+  getSuggestions(queryStr, "baidu").then((res: any) => {
+    baiduSuggestions.value = res.data.g.map((item: any) => {
+      return {
+        value: item.q,
+        link: `https://www.baidu.com/s?wd=${item.q}`,
+      };
+    });
+
+    cb(baiduSuggestions.value);
+  });
+};
+const handleSelect = (item: any) => {
+  window.open(item.link);
 };
 </script>
 <style lang="less" scoped>

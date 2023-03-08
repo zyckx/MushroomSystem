@@ -32,9 +32,22 @@
             </h2>
           </div>
           <div class="menu_item">
-            <h2 class="menu_item_link">
+            <h2 class="menu_item_link login-wrap">
               <template v-if="userStore.IsLogin">
-                <img src="../../assets/logo.png" alt="" />
+                <router-link to="/personal">
+                  <img src="../../assets/logo.png" alt="" />
+                </router-link>
+                <!-- submenu -->
+                <div class="submenu">
+                  <div class="submenu_item">
+                    <router-link to="/personal">
+                      <span>个人中心</span>
+                    </router-link>
+                  </div>
+                  <div class="submenu_item">
+                    <span @click="logOut()">退出登录</span>
+                  </div>
+                </div>
               </template>
               <template v-else>
                 <router-link to="/login">
@@ -50,6 +63,7 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from "../../store/UserStore";
+import { loginOut } from "../../api/login/login";
 const userStore = useUserStore();
 const router = useRouter();
 const MenuIsOpen = ref(false);
@@ -108,6 +122,15 @@ router.afterEach(() => {
   MenuIsOpen.value = false;
 });
 
+const logOut = async () => {
+  await loginOut().then((res) => {
+    if (res.code === 1) {
+      ElMessage.success("退出成功");
+      router.push("/login");
+      userStore.loginOut();
+    }
+  });
+};
 const handleScroll = () => {
   const scrollTop =
     document.documentElement.scrollTop || document.body.scrollTop;
@@ -176,10 +199,42 @@ header {
             color: #333;
             font-weight: 500;
             transition: all 0.3s;
-            img {
-              width: 40px;
-              height: 40px;
+            &.login-wrap {
+              position: relative;
+              img {
+                width: 40px;
+                height: 40px;
+              }
+
+              .submenu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+                display: none;
+                background-color: #fff;
+
+                .submenu_item {
+                  padding: 10px 0;
+                  text-align: center;
+                  cursor: pointer;
+                  a {
+                    color: #333;
+                  }
+                  &:hover {
+                    background-color: #dbdbdbc6;
+                  }
+                }
+              }
+              &:hover {
+                .submenu {
+                  display: block;
+                }
+              }
             }
+
             &:hover {
               color: #1890ff;
             }

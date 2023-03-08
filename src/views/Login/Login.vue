@@ -151,6 +151,10 @@ const loginFormSubmit = async (formEl: FormInstance | undefined) => {
               message: "登录成功",
               type: "success",
             });
+            userStore.userInfo.avatar = "src/assets/logo.png";
+            userStore.userInfo.username = loginForm.userInfo.username;
+            userStore.userInfo.email = "admin@test.com";
+
             userStore.IsLogin = true;
             router.push("/");
           } else {

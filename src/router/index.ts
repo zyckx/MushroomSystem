@@ -26,7 +26,13 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/discussion',
         name: 'discussion',
-        component: () => import('../views/Discussion/Discussion.vue')
+        component: () => import('../views/Discussion/Discussion.vue'),
+       
+    },
+    {
+        path: '/discussion/:id',
+        name: 'discussionDetail',
+        component: () => import('../views/Discussion/Detail.vue'),
     },
     // 添加带权限的personal页面
     {

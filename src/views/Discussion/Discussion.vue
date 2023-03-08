@@ -21,66 +21,69 @@
   <div class="discuss-container">
     <h2>香菇菌棒污染分类</h2>
     <div class="discuss-card">
-      <div class="discuss-card-item">
+      <div
+        class="discuss-card-item"
+        v-for="item in discussList"
+        :key="item.id"
+        @click="disDetail(item.id)"
+      >
         <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病" />
+          <img :src="item.img" alt="发病" />
         </div>
         <div class="discuss-card-item-content">
-          <h3 class="discuss-title">香菇菌棒污染****</h3>
-          <p class="discuss-content">治理方法</p>
-        </div>
-      </div>
-      <div class="discuss-card-item">
-        <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病" />
-        </div>
-        <div class="discuss-card-item-content">
-          <h3 class="discuss-title">香菇菌棒污染****</h3>
-          <p class="discuss-content">治理方法</p>
-        </div>
-      </div>
-      <div class="discuss-card-item">
-        <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病" />
-        </div>
-        <div class="discuss-card-item-content">
-          <h3 class="discuss-title">香菇菌棒污染****</h3>
-          <p class="discuss-content">治理方法</p>
-        </div>
-      </div>
-      <div class="discuss-card-item">
-        <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病" />
-        </div>
-        <div class="discuss-card-item-content">
-          <h3 class="discuss-title">香菇菌棒污染****</h3>
-          <p class="discuss-content">治理方法</p>
-        </div>
-      </div>
-      <div class="discuss-card-item">
-        <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病" />
-        </div>
-        <div class="discuss-card-item-content">
-          <h3 class="discuss-title">香菇菌棒污染****</h3>
-          <p class="discuss-content">治理方法</p>
-        </div>
-      </div>
-      <div class="discuss-card-item">
-        <div class="discuss-card-item-img">
-          <img src="../../assets/img/ill.jpg" alt="发病" />
-        </div>
-        <div class="discuss-card-item-content">
-          <h3 class="discuss-title">香菇菌棒污染****</h3>
-          <p class="discuss-content">治理方法</p>
+          <h3 class="discuss-title">{{ item.title }}</h3>
+          <p class="discuss-content">{{ item.content }}</p>
         </div>
       </div>
     </div>
   </div>
-  <chatGPT />
 </template>
 <script setup lang="ts">
 const searchQuery = ref("");
+const route = useRoute();
+const router = useRouter();
+
+const discussList = reactive([
+  {
+    id: 1,
+    title: "香菇菌棒污染****",
+    content: "治理方法",
+    img: "src/assets/img/ill.jpg",
+  },
+  {
+    id: 2,
+    title: "香菇菌棒污染****",
+    content: "治理方法",
+    img: "src/assets/img/ill.jpg",
+  },
+  {
+    id: 3,
+    title: "香菇菌棒污染****",
+    content: "治理方法",
+    img: "src/assets/img/ill.jpg",
+  },
+  {
+    id: 4,
+    title: "香菇菌棒污染****",
+    content: "治理方法",
+    img: "src/assets/img/ill.jpg",
+  },
+  {
+    id: 5,
+    title: "香菇菌棒污染****",
+    content: "治理方法",
+    img: "src/assets/img/ill.jpg",
+  },
+  {
+    id: 6,
+    title: "香菇菌棒污染****",
+    content: "治理方法",
+    img: "src/assets/img/ill.jpg",
+  },
+]);
+const disDetail = (id: number) => {
+  router.push({ path: `/discussion/${id}` });
+};
 </script>
 <style lang="less" scoped>
 @hover_color: #3370ff;

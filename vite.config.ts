@@ -10,7 +10,7 @@ export default defineConfig({
     plugins: [
         vue(),
         AutoImport({
-            imports: ['vue', 'vue-router'],
+            imports: ['vue', 'vue-router',"@vueuse/core"],
             dts: 'src/auto-imports.d.ts',
             resolvers: [
                 ElementPlusResolver(),
@@ -30,6 +30,12 @@ export default defineConfig({
                 target: 'http://localhost:8088/api',
                 changeOrigin: true,//是否跨域
                 rewrite: (path) => path.replace(/^\/api/, '')
+            },
+            '/baidu': {
+                // target: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+                target: 'https://www.baidu.com/sugrec',
+                changeOrigin: true,//是否跨域
+                rewrite: (path) => path.replace(/^\/baidu/, '')
             }
         }
     }

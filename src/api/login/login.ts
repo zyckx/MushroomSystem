@@ -9,3 +9,6 @@ export const getCaptcha =async () => {
     const imgResponse= await http.get("/getCode", {}, {responseType: "blob"});
     return URL.createObjectURL(imgResponse);
 }
+export const loginOut = () => {
+    return http.get<Response>("/logout");
+}
