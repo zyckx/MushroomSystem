@@ -4,14 +4,11 @@
     <BannerCoverText />
   </div>
   <section class="index_introduce">
-   <IndexIntroduce/>
+    <IndexIntroduce />
   </section>
-
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .banner_wrap {
@@ -20,7 +17,7 @@
   height: 100vh;
   overflow: hidden;
 }
-.index_introduce{
+.index_introduce {
   /*position: absolute;*/
   /*top: 100vh;*/
   /*width:100%;*/

@@ -1,8 +1,8 @@
 <template>
   <div class="news-banner">
     <div class="banner-title">
-      <h2>香菇菌棒污染</h2>
-      <h3>预防、防治污染</h3>
+      <h2>{{ props.titile }}</h2>
+      <h3>{{ props.tip }}</h3>
     </div>
     <el-autocomplete
       class="search-input"
@@ -11,16 +11,58 @@
       v-model="searchQuery"
       clearable
       ref="autocomplete"
-      @focus="true"
-      @blur="false"
-      placeholder="请输入病因关键词"
+      @focus="(autocompleteFlag) => true"
+      @blur="(autocompleteFlag) => false"
+      :fetch-suggestions="querySearchAsync"
+      placeholder="请输入发病关键词"
       :trigger-on-focus="false"
+      @select="handleSelect"
     >
     </el-autocomplete>
   </div>
 </template>
 <script setup lang="ts">
+import { getSuggestions } from "../../api/getSuggestions";
+import { useThrottleFn } from "@vueuse/core";
+
+const props = defineProps({
+  titile: String,
+  tip: String,
+});
 const searchQuery = ref("");
+interface SuggestItem {
+  value: string;
+  link: string;
+}
+const baiduSuggestions = ref<SuggestItem[]>([]);
+const throttledQuerySearchAsync = useThrottleFn((queryStr: string, cb: any) => {
+  getSuggestions(queryStr).then((res: any) => {
+    console.log(res.data);
+
+    if (res.data.g) {
+      baiduSuggestions.value = res.data.g.map((item: any) => {
+        return {
+          value: item.q,
+          link: `https://www.baidu.com/s?wd=${item.q}`,
+        };
+      });
+      cb(baiduSuggestions.value);
+    } else {
+      cb([]);
+      ElMessage({
+        message: "暂无相关数据",
+        type: "warning",
+      });
+      return;
+    }
+  });
+}, 1000); // set the throttle delay to 1000ms (1 second)
+const querySearchAsync = (queryStr: string, cb: any) => {
+  throttledQuerySearchAsync(queryStr, cb);
+};
+const handleSelect = (item: any) => {
+  window.open(item.link);
+};
 </script>
 
 <style lang="less" scoped>

@@ -1,23 +1,5 @@
 <template>
-  <div class="news-banner">
-    <div class="banner-title">
-      <h2>香菇菌棒污染</h2>
-      <h3>预防、防治污染</h3>
-    </div>
-    <el-autocomplete
-      class="search-input"
-      popper-class="my-autocomplete"
-      highlight-first-item
-      v-model="searchQuery"
-      clearable
-      ref="autocomplete"
-      @focus="true"
-      @blur="false"
-      placeholder="请输入病因关键词"
-      :trigger-on-focus="false"
-    >
-    </el-autocomplete>
-  </div>
+  <SearchBanner />
   <div class="discuss-container">
     <h2>香菇菌棒污染分类</h2>
     <div class="discuss-card">
@@ -39,8 +21,6 @@
   </div>
 </template>
 <script setup lang="ts">
-const searchQuery = ref("");
-const route = useRoute();
 const router = useRouter();
 
 const discussList = reactive([

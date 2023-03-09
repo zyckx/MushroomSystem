@@ -1,26 +1,5 @@
 <template>
-  <div class="news-banner">
-    <div class="banner-title">
-      <h2>搜索治理方法</h2>
-      <h3>了解更多</h3>
-    </div>
-    <el-autocomplete
-      class="search-input"
-      popper-class="my-autocomplete"
-      highlight-first-item
-      v-model="searchNews"
-      clearable
-      ref="autocomplete"
-      @focus="(autocompleteFlag) => true"
-      @blur="(autocompleteFlag) => false"
-      @clear="searchHandle"
-      :fetch-suggestions="querySearchAsync"
-      placeholder="请输入发病关键词"
-      :trigger-on-focus="false"
-      @select="handleSelect"
-    >
-    </el-autocomplete>
-  </div>
+  <SearchBanner :titile="titile" :tip="tip" />
   <div class="recognize-container">
     <div class="recognize-card">
       <div class="upload-wrap">
@@ -70,93 +49,15 @@
 </template>
 
 <script setup lang="ts">
-import { getSuggestions } from "../../api/getSuggestions";
-const searchNews = ref("");
-interface SuggestItem {
-  value: string;
-  link: string;
-}
-const baiduSuggestions = ref<SuggestItem[]>([]);
-
 const IsRecognized = ref(false);
+const titile = ref("香菇菌棒污染在线识别");
+const tip = ref("预防、防治污染");
 const submitUpload = () => {
   console.log("submitUpload");
-};
-const searchHandle = () => {
-  console.log("searchHandle");
-};
-const querySearchAsync = (queryStr: string, cb: any) => {
-  getSuggestions(queryStr, "baidu").then((res: any) => {
-    baiduSuggestions.value = res.data.g.map((item: any) => {
-      return {
-        value: item.q,
-        link: `https://www.baidu.com/s?wd=${item.q}`,
-      };
-    });
-
-    cb(baiduSuggestions.value);
-  });
-};
-const handleSelect = (item: any) => {
-  window.open(item.link);
 };
 </script>
 <style lang="less" scoped>
 @hover_color: #3370ff;
-.news_header {
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-}
-
-.news-banner {
-  width: 100%;
-  height: 280px;
-  background: url("../../assets/img/news/newsbanner.jpg") 50% no-repeat;
-  background-size: cover;
-  text-align: center;
-  padding-top: 70px;
-
-  .banner-title {
-    padding-bottom: 30px;
-
-    h2 {
-      font-size: 40px;
-      line-height: 60px;
-      font-weight: 600;
-    }
-
-    h3 {
-      color: #828282;
-      margin-top: 5px;
-      font-size: 100%;
-      font-weight: 400;
-      font-variant: normal;
-    }
-  }
-
-  :deep(.el-autocomplete) {
-    width: 46%;
-
-    .el-input__wrapper {
-      border-radius: 30px;
-    }
-
-    .el-input {
-      border-radius: 30px !important;
-    }
-
-    .el-input__inner {
-      height: 46px;
-      line-height: 46px;
-      border-radius: 30px;
-    }
-
-    .el-input__icon {
-      line-height: 46px;
-      font-size: 16px;
-    }
-  }
-}
 .recognize-container {
   width: 100%;
   height: 100%;

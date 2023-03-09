@@ -1,6 +1,6 @@
 <template>
   <div class="detail-wrap">
-    <SearchBanner />
+    <SearchBanner :titile="detail.title" :tip="detail.content" />
     <div class="detail-container">
       <div class="detail-content">
         <div class="detail-content-title">
@@ -34,7 +34,6 @@
 </template>
 <script setup lang="ts">
 //动态路由
-const route = useRoute();
 const detail = reactive({
   userInfo: {
     name: "张三",

@@ -92,7 +92,7 @@
   </main>
 </template>
 <script setup lang="ts">
-const title = useTitle("找不到404星系");
+useTitle("找不到404星系");
 </script>
 
 <style lang="less" scoped>

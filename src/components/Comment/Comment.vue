@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-text-v-html-on-component -->
 <template>
   <div class="comment-view">
     <u-comment
@@ -106,8 +107,8 @@ setTimeout(() => {
 
 const userInfo = ref({} as any);
 
-// 请求获取用户详细信息
-const getUser = (uid: string, show: Function) => {
+// 请求获取用户详细信息 Function可能有不确定参数，使用void确定不会返回任何值
+const getUser = (uid: string, show: () => void) => {
   console.log("获取用户信息: " + uid);
   setTimeout(() => {
     userInfo.value = {
@@ -331,16 +332,16 @@ const reply = {
 } as ReplyApi;
 
 const page = (pageNum: number, pageSize: number, arr: any[]) => {
-  var skipNum = (pageNum - 1) * pageSize;
-  var newArr =
+  const skipNum = (pageNum - 1) * pageSize;
+  const newArr =
     skipNum + pageSize >= arr.length
       ? arr.slice(skipNum, arr.length)
       : arr.slice(skipNum, skipNum + pageSize);
   return newArr;
 };
 
-//回复分页
-const replyPage = ({ parentId, pageNum, pageSize, finish }: ReplyPageParam) => {
+//回复分页  const replyPage = ({ parentId, pageNum, pageSize, finish
+const replyPage = ({ pageNum, pageSize, finish }: ReplyPageParam) => {
   let tmp = {
     total: reply.total,
     list: page(pageNum, pageSize, reply.list),

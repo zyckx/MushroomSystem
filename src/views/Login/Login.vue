@@ -174,11 +174,6 @@ const loginFormSubmit = async (formEl: FormInstance | undefined) => {
 function registerFormSubmit() {
   console.log("register");
 }
-
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.resetFields();
-};
 </script>
 <style scoped lang="less">
 .container {

@@ -1,4 +1,9 @@
-import axios, { AxiosResponse,InternalAxiosRequestConfig ,AxiosRequestConfig, AxiosError } from "axios";
+import axios, {
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+  AxiosRequestConfig,
+  AxiosError,
+} from "axios";
 
 // 创建axios实例
 const service = axios.create({
@@ -9,7 +14,7 @@ const service = axios.create({
 // axios请求拦截器
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-      config.headers["Content-Type"] = "application/json";
+    config.headers["Content-Type"] = "application/json";
     return config;
   },
   (error: AxiosError) => {
@@ -18,7 +23,7 @@ service.interceptors.request.use(
 );
 // axios响应拦截器
 service.interceptors.response.use((response: AxiosResponse) => {
-    return response;
+  return response;
 });
 export type { AxiosRequestConfig, AxiosResponse, AxiosError };
 export default service;

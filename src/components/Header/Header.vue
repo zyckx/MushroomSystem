@@ -64,6 +64,7 @@
 <script setup lang="ts">
 import { useUserStore } from "../../store/UserStore";
 import { loginOut } from "../../api/login/login";
+import { delCookie } from "../../utils/handleCookie";
 const userStore = useUserStore();
 const router = useRouter();
 const MenuIsOpen = ref(false);
@@ -128,6 +129,7 @@ const logOut = async () => {
       ElMessage.success("退出成功");
       router.push("/login");
       userStore.loginOut();
+      delCookie("ticket");
     }
   });
 };
